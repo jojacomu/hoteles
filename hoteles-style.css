@@ -30,6 +30,8 @@ h1 {
     color: white;
 }
 
+/* Clases header */
+
 .filter-container {
     color: black;
 }
@@ -45,6 +47,8 @@ h1 {
 .copy2 {
     font-family: "Roboto", sans-serif;
 }
+
+/* Clases contenedor hoteles */
 
 .hotels-container {
     width: 100%;
