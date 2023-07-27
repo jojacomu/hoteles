@@ -1,4 +1,4 @@
-import { consultarHoteles } from "./apihotels.js";
+import { consultarHoteles } from "/apihotels.js";
 
 const buttonConsulta = document.getElementById("clear");
 const main = document.querySelector("main");
