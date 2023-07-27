@@ -128,8 +128,16 @@ header {
     padding: 1.5rem;
     background-color: gainsboro;
     display: flex;
+    flex-direction: column;
     margin-top: 3.125rem;
 }
+
+/* .card {
+    height: 21.83vw;
+    padding: 1.5rem 1rem 1.5rem 1.5rem;
+    margin-top: 1.2rem;
+    font-size: 0.75rem;
+} */
 
 /* Pantallas superiores a 600px */
 

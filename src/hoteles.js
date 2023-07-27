@@ -1,7 +1,7 @@
 import { consultarHoteles } from "./apihotels.js";
 
 const buttonConsulta = document.getElementById("clear");
-const main = document.querySelector("main");
+const main = document.querySelector(".hotels-container");
 
 buttonConsulta.addEventListener("click", async () => {
     const respuesta = await consultarHoteles();
