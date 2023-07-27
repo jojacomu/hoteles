@@ -1,6 +1,6 @@
-import { consultarHoteles } from "/apihotels.js";
+import { consultarHoteles } from "./apihotels.js";
 
-const buttonConsulta = document.getElementById("clear");
+const buttonConsulta = document.getElementsByClassName("clear");
 const main = document.querySelector("main");
 
 buttonConsulta.addEventListener("click", async () => {
@@ -12,7 +12,6 @@ buttonConsulta.addEventListener("click", async () => {
         const cardHotel = document.createElement("div");
         cardHotel.className = "card";
         main.appendChild(cardHotel);
-
         const imagenHotel = document.createElement("img");
         imagenHotel.setAttribute("src", hotel.photo);
         imagenHotel.setAttribute("alt", hotel.name);
