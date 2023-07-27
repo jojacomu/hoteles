@@ -1,6 +1,6 @@
 import { consultarHoteles } from "./apihotels.js";
 
-const buttonConsulta = document.getElementsByClassName("clear");
+const buttonConsulta = document.getElementById("clear");
 const main = document.querySelector("main");
 
 buttonConsulta.addEventListener("click", async () => {
