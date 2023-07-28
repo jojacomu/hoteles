@@ -21,10 +21,18 @@ buttonConsulta.addEventListener("click", async () => {
         nombreHotel.innerText = hotel.name;
         nombreHotel.className = "hotel-name";
         cardHotel.appendChild(nombreHotel);
+        const textoPais = document.createElement("span");
+        textoPais.innerHTML = "Pais"
+        textoPais.className = "paises";
+        cardHotel.appendChild(textoPais);
         const paisHotel = document.createElement("p");
         paisHotel.innerText = hotel.country;
         paisHotel.className = "hotel-pais";
         cardHotel.appendChild(paisHotel);
+        const textoRooms = document.createElement("span");
+        textoRooms.innerHTML = "Rooms"
+        textoRooms.className = "rooms";
+        cardHotel.appendChild(textoRooms);
         const roomsHotel = document.createElement("p");
         roomsHotel.innerText = hotel.rooms;
         roomsHotel.className = "hotel-rooms";
