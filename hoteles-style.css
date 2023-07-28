@@ -218,4 +218,9 @@ header {
         padding: 0.6rem 0 0.5rem 0.2rem;
         font-size: 1.125rem;
     }
+
+    .hotels-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
