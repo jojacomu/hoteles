@@ -21,5 +21,13 @@ buttonConsulta.addEventListener("click", async () => {
         nombreHotel.innerText = hotel.name;
         nombreHotel.className = "hotel-name";
         cardHotel.appendChild(nombreHotel);
+        const paisHotel = document.createElement("p");
+        paisHotel.innerText = hotel.country;
+        paisHotel.className = "hotel-pais";
+        cardHotel.appendChild(paisHotel);
+        const roomsHotel = document.createElement("p");
+        roomsHotel.innerText = hotel.rooms;
+        roomsHotel.className = "hotel-rooms";
+        cardHotel.appendChild(roomsHotel);
         });
 });
