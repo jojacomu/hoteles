@@ -128,8 +128,10 @@ header {
     padding: 1.5rem;
     background-color: gainsboro;
     display: flex;
+    align-items: center;
     flex-direction: column;
     margin-top: 3.125rem;
+    gap:1rem;
 }
 
 .card {
@@ -222,5 +224,7 @@ header {
     .hotels-container {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+        justify-items: center;
+        gap:1rem;
     }
 }
