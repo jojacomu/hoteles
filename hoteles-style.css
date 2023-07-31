@@ -123,7 +123,6 @@ header {
     display: flex;
     align-items: center;
     flex-direction: column;
-    /* margin-top: 3.125rem; */
     gap:1rem;
 }
 

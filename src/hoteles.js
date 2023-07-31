@@ -44,8 +44,3 @@ data.forEach((hotel) => {
     textoBookit.className = "button-bookit";
     bookit.appendChild(textoBookit);
 });
-
-// // Llamamos a la función para mostrar las publicaciones cuando la página se cargue
-// window.onload = consultarHoteles;
-
-// const filtroInput = document.getElementById('filtro-titulo');
