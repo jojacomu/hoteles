@@ -164,6 +164,11 @@ header {
     gap:0.625rem;
 }
 
+.button-bookit {
+    display: flex;
+    align-self:flex-end;
+}
+
 /* Pantallas superiores a 600px */
 
 @media (600px <= width) {

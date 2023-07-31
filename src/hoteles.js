@@ -35,7 +35,14 @@ data.forEach((hotel) => {
     const priceHotel = document.createElement("p");
     priceHotel.innerText = hotel.price;
     priceHotel.className = "hotel-price";
-    cardHotel.appendChild(priceHotel);
+    textoCard.appendChild(priceHotel);
+    const bookit = document.createElement("button");
+    bookit.className = "hotel-bookit clear";
+    cardHotel.appendChild(bookit);
+    const textoBookit = document.createElement("p");
+    textoBookit.innerHTML = "Book it!"
+    textoBookit.className = "button-bookit";
+    bookit.appendChild(textoBookit);
 });
 
 // // Llamamos a la función para mostrar las publicaciones cuando la página se cargue
