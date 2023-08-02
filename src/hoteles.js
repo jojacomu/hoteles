@@ -25,7 +25,10 @@ data.forEach((hotel) => {
     sectionHotels.appendChild(cardHotel);
 });
 
-// *******************************************Filtro Argentina ************************************
+// *******************************************Filtro por país ************************************
+
+
+
 function obtenerHotelesEnArgentina() {
     const url = 'https://6256097e8646add390e01d99.mockapi.io/hotels/reservation/hotels';
 
@@ -39,8 +42,19 @@ function obtenerHotelesEnArgentina() {
     .then(data => {
         // Filtramos los objetos que tienen "country" con el valor "Argentina"
         const hotelesEnArgentina = data.filter(hotel => hotel.country === 'Argentina');
+        const hotelesEnBrasil = data.filter(hotel => hotel.country === 'Brasil');
+        const hotelesEnChile = data.filter(hotel => hotel.country === 'Chile');
+        const hotelesEnUruguay = data.filter(hotel => hotel.country === 'Uruguay');
+        // Array con los filtros por país
+        const hotelsByCountry = [hotelesEnArgentina, hotelesEnBrasil, hotelesEnChile,hotelesEnUruguay] 
+        console.log(hotelsByCountry)
+        
         // Mostramos la información de los hoteles en la página
+        
         mostrarHoteles(hotelesEnArgentina);
+        // mostrarHoteles(hotelesEnBrasil);
+        // mostrarHoteles(hotelesEnChile);
+        // mostrarHoteles(hotelesEnUruguay);
     })
     .catch(error => {
         console.error("Error:", error);
@@ -90,51 +104,23 @@ buttonConsulta.addEventListener("click", async () => {
     console.log(data2);
     mainClear.innerHTML = "";
     data2.forEach((hotel) => {
-        
         const cardHotel = document.createElement("div");
-        cardHotel.className = "card";
-        sectionHotels.appendChild(cardHotel);
-        
-        const imagenHotel = document.createElement("img");
-        imagenHotel.setAttribute("src", hotel.photo);
-        imagenHotel.setAttribute("alt", hotel.name);
-        imagenHotel.className = "hotel-image";
-        cardHotel.appendChild(imagenHotel);
-        
-        const nombreHotel = document.createElement("h2");
-        nombreHotel.innerText = hotel.name;
-        nombreHotel.className = "hotel-name";
-        cardHotel.appendChild(nombreHotel);
-        
-        const paisHotel = document.createElement("p");
-        paisHotel.innerText = hotel.country;
-        paisHotel.className = "hotel-pais";
-        cardHotel.appendChild(paisHotel);
-        
-        const textoCard = document.createElement("div")
-        cardHotel.appendChild(textoCard);
-        textoCard.className = "textoCard"
-        
-        const roomsHotel = document.createElement("p");
-        roomsHotel.innerText = hotel.rooms;
-        roomsHotel.className = "hotel-rooms";
-        textoCard.appendChild(roomsHotel);
-        const textoRooms = document.createElement("p");
-        textoRooms.innerText = "rooms"
-        textoRooms.className = "rooms";
-        textoCard.appendChild(textoRooms);
-        
-        const priceHotel = document.createElement("p");
-        priceHotel.innerText = hotel.price;
-        priceHotel.className = "hotel-price";
-        textoCard.appendChild(priceHotel);
-        
-        const bookit = document.createElement("button");
-        bookit.className = "hotel-bookit clear";
-        cardHotel.appendChild(bookit);
-        const textoBookit = document.createElement("p");
-        textoBookit.innerText = "Book it!"
-        textoBookit.className = "button-bookit";
-        bookit.appendChild(textoBookit);
+    cardHotel.className = "card";
+    cardHotel.innerHTML = `
+        <img src="${hotel.photo}" alt="${hotel.name}" class="hotel-image" />
+        <h2>${hotel.name}</h2>
+        <div class="detallesCard">
+            <p>País: ${hotel.country}</p>
+            <div class="textoCard">
+                <p>Rooms: ${hotel.rooms}</p>
+                <p>Price: ${hotel.price}</p>
+                <div>
+                    <button class="hotel-bookit clear">Book it!</button>
+                </div>
+            </div>
+        </div>
+        <!-- Agregar más detalles del hotel si es necesario -->
+    `;
+    sectionHotels.appendChild(cardHotel);
         });
 });
