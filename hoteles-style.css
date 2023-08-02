@@ -173,6 +173,7 @@ header {
 .button-bookit {
     display: flex;
     align-self:flex-end;
+    justify-content: center
 }
 
 /* Pantallas superiores a 600px */
