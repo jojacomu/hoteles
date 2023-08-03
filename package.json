@@ -1,0 +1,12 @@
+{
+  "name": "hoteles",
+  "version": "1.0.0",
+  "description": "Documentación del proyecto hoteles dentro del Bootcamp DevTools 2023\r sobre el proyecto y las instrucciones para ejecutarlo localmente.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
