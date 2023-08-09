@@ -57,6 +57,7 @@ function loadHotelsByCountry(country) {
             sectionHotels.innerHTML = '';
 
             // Agregar hoteles a la lista
+            
             data.forEach((hotel) => {
                 const cardHotel = document.createElement("div");
                 cardHotel.className = "card";
@@ -205,7 +206,7 @@ function loadHotelsDeparture(departureDate) {
     .then(data => {
         const filteredHotels = data.filter(hotel => {
             const availabilityFrom = new Date(hotel.availabilityFrom);
-            return availabilityFrom <= departureDate;
+            return availabilityFrom >= departureDate;
         });
         // Limpiar la lista de hoteles antes de agregar nuevos elementos
         sectionHotels.innerHTML = '';
@@ -274,149 +275,7 @@ function loadHotelsReturntrip(returntripDate) {
         });
     });
 }
-
 returntripDateInput.addEventListener('change', function() {
     const returntripDate = new Date(returntripDateInput.value);
     loadHotelsReturntrip(returntripDate);
 });
-
-// *******************************************Filtro por cuartos ************************************
-
-// const sizesSelect = document.getElementById('sizes');
-// // Función para cargar hoteles por cuartos desde la API
-// function loadHotelsBySize(size) {
-//     if(size === "All") {
-//         fetch(`https://6256097e8646add390e01d99.mockapi.io/hotels/reservation/hotels`)
-//             .then(response => response.json())
-//             .then(data => {
-//             // Limpiar la lista de hoteles antes de agregar nuevos elementos
-//             sectionHotels.innerHTML = '';
-//            // Agregar hoteles a la lista
-//                 data.forEach((hotel) => {
-//                     const cardHotel = document.createElement("div");
-//                     cardHotel.className = "card";
-//                     cardHotel.innerHTML = `
-//                         <img src="${hotel.photo}" alt="${hotel.name}" class="hotel-image" />
-//                         <h2>${hotel.name}</h2>
-//                         <div class="detallesCard">
-//                             <p>País: ${hotel.country}</p>
-//                             <div class="textoCard">
-//                                 <p>Rooms: ${hotel.rooms}</p>
-//                                 <p>Price: ${hotel.price}</p>
-//                                 <div>
-//                                     <button class="hotel-bookit clear">Book it!</button>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                         <!-- Agregar más detalles del hotel si es necesario -->
-//                     `;
-//                 sectionHotels.appendChild(cardHotel);
-//                 });
-//             })
-//     } if(size === "Small") {        
-//         fetch(`https://6256097e8646add390e01d99.mockapi.io/hotels/reservation/hotels`)
-//             .then(response => response.json())
-//             .then(data => {
-//             const filteredHotels = data.filter(hotel => hotel.rooms >= 0 && hotel.rooms <= 10);
-//             // Limpiar la lista de hoteles antes de agregar nuevos elementos
-//             sectionHotels.innerHTML = '';
-//             // Agregar hoteles a la lista
-//             filteredHotels.forEach((hotel) => {
-//                     const cardHotel = document.createElement("div");
-//                     cardHotel.className = "card";
-//                     cardHotel.innerHTML = `
-//                         <img src="${hotel.photo}" alt="${hotel.name}" class="hotel-image" />
-//                         <h2>${hotel.name}</h2>
-//                         <div class="detallesCard">
-//                             <p>País: ${hotel.country}</p>
-//                             <div class="textoCard">
-//                                 <p>Rooms: ${hotel.rooms}</p>
-//                                 <p>Price: ${hotel.price}</p>
-//                                 <div>
-//                                     <button class="hotel-bookit clear">Book it!</button>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                         <!-- Agregar más detalles del hotel si es necesario -->
-//                     `;
-//                     sectionHotels.appendChild(cardHotel);
-//                 });
-//             })
-//             .catch(error => {
-//                 console.error('Error al cargar hoteles:', error);
-//             });
-
-//     } if(size === "Medium") {
-//         fetch(`https://6256097e8646add390e01d99.mockapi.io/hotels/reservation/hotels`)
-//             .then(response => response.json())
-//             .then(data => {
-//             // Limpiar la lista de hoteles antes de agregar nuevos elementos
-//             const filteredHotels = data.filter(hotel => hotel.rooms >= 0 && hotel.rooms <= 10);
-//             sectionHotels.innerHTML = '';
-//             // Agregar hoteles a la lista
-//             filteredHotels.forEach((hotel) => {
-//                     const cardHotel = document.createElement("div");
-//                     cardHotel.className = "card";
-//                     cardHotel.innerHTML = `
-//                         <img src="${hotel.photo}" alt="${hotel.name}" class="hotel-image" />
-//                         <h2>${hotel.name}</h2>
-//                         <div class="detallesCard">
-//                             <p>País: ${hotel.country}</p>
-//                             <div class="textoCard">
-//                                 <p>Rooms: ${hotel.rooms}</p>
-//                                 <p>Price: ${hotel.price}</p>
-//                                 <div>
-//                                     <button class="hotel-bookit clear">Book it!</button>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                         <!-- Agregar más detalles del hotel si es necesario -->
-//                     `;
-//                     sectionHotels.appendChild(cardHotel);
-//                 });
-//             })
-//             .catch(error => {
-//                 console.error('Error al cargar hoteles:', error);
-//             });
-//     } if(size === "Large") {
-//         fetch(`https://6256097e8646add390e01d99.mockapi.io/hotels/reservation/hotels`)
-//             .then(response => response.json())
-//             .then(data => {
-//             const filteredHotels = data.filter(hotel => hotel.rooms >= 20 && hotel.rooms <= undefined);
-//             // Limpiar la lista de hoteles antes de agregar nuevos elementos
-//             sectionHotels.innerHTML = '';
-//             // Agregar hoteles a la lista
-//             filteredHotels.forEach((hotel) => {
-//                     const cardHotel = document.createElement("div");
-//                     cardHotel.className = "card";
-//                     cardHotel.innerHTML = `
-//                         <img src="${hotel.photo}" alt="${hotel.name}" class="hotel-image" />
-//                         <h2>${hotel.name}</h2>
-//                         <div class="detallesCard">
-//                             <p>País: ${hotel.country}</p>
-//                             <div class="textoCard">
-//                                 <p>Rooms: ${hotel.rooms}</p>
-//                                 <p>Price: ${hotel.price}</p>
-//                                 <div>
-//                                     <button class="hotel-bookit clear">Book it!</button>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                         <!-- Agregar más detalles del hotel si es necesario -->
-//                     `;
-//                     sectionHotels.appendChild(cardHotel);
-//                 });
-//             })
-//             .catch(error => {
-//                 console.error('Error al cargar hoteles:', error);
-//             });
-//     } else {
-//         alert('Por favor, selecciona un tamaño');
-//         }
-// }
-
-// // Event listener para detectar cambios en la selección de número de habitaciones
-// sizesSelect.addEventListener('change', function() {
-//     const selectedSize = sizesSelect.value;
-//     loadHotelsBySize(selectedSize);
-// })
