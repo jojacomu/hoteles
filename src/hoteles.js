@@ -244,21 +244,21 @@ const data = await respuesta.json();
 // Filtro de datos por fecha
 const dateDeparture = document.getElementById("departure");
 const dateReturntrip = document.getElementById("returntrip");
-const today = new Date();
-function zerodate(dateZero) {
-    const converText = "" + dateZero;
+const now = new Date();
+function fechaCero(fechaCero) {
+    const converText = "" + fechaCero;
     if (converText.length === 1) {
-    return "0" + dateZero;
+    return "0" + fechaCero;
     } else {
-    return dateZero;
+    return fechaCero;
     }
 }
-const day = today.getDate();
-const month = today.getMonth() + 1;
-const year = today.getFullYear();
-const dateDepartureHotels = year + "-" + zerodate(month) + "-" + zerodate(day);
+const day = now.getDate();
+const month = now.getMonth() + 1;
+const year = now.getFullYear();
+const dateDepartureHotels = year + "-" + fechaCero(month) + "-" + fechaCero(day);
 const dateReturntripHotels =
-    year + "-" + zerodate(month) + "-" + zerodate(day + 1);
+    year + "-" + fechaCero(month) + "-" + fechaCero(day + 1);
 dateDeparture.setAttribute("min", dateDepartureHotels);
 dateReturntrip.setAttribute("min", dateReturntripHotels);
 dateDeparture.addEventListener("change", () => {
@@ -267,10 +267,10 @@ dateDeparture.addEventListener("change", () => {
     const month = parseInt(parts[1]);
     const day = parseInt(parts[2]);
     console.log(day)
-    const finalDate = year + "-" + zerodate(month) + "-" + zerodate(day+1);
+    const finalDate = year + "-" + fechaCero(month) + "-" + fechaCero(day+1);
     dateReturntrip.setAttribute("min", finalDate);
 });
-function isHotelAvailable(hotel, differenceInMilliseconds) {
+function esHotelDisponible(hotel, differenceInMilliseconds) {
     const availabilityFrom = hotel.availabilityFrom;
     const availabilityTo = hotel.availabilityTo;
     const availabilityDifference = availabilityTo - availabilityFrom;
@@ -285,18 +285,18 @@ function calculateDifferenceDays() {
     console.log(currentDateIni);
     const currentDateMilliseconds = currentDateIni.getTime();
     console.log(currentDateMilliseconds);
-    const optionCheckInIni = new Date(dateDeparture.value + " 00:00:00");
-    console.log(optionCheckInIni);
-    optionCheckInIni.setHours(0, 0, 0, 0);
-    const optionCheckIn = optionCheckInIni.getTime();
-    console.log(optionCheckInIni);
+    const optionDepartureIni = new Date(dateDeparture.value + " 00:00:00");
+    console.log(optionDepartureIni);
+    optionDepartureIni.setHours(0, 0, 0, 0);
+    const optionDeparture = optionDepartureIni.getTime();
+    console.log(optionDepartureIni);
     if (!dateReturntripSelected) {
     return;
     }
-    const optionCheckOut = new Date(dateReturntrip.value);
-    console.log(optionCheckOut)
-    const resultCheckIn = optionCheckIn ;
-    const millisecondsDate = optionCheckOut - optionCheckIn;
+    const optionReturntrip = new Date(dateReturntrip.value);
+    console.log(optionReturntrip)
+    const resultCheckIn = optionDeparture ;
+    const millisecondsDate = optionReturntrip - optionDeparture;
     const millisecondsInADay = 24 * 60 * 60 * 1000; // 86,400,000
     const differenceInMilliseconds =
         Math.round(millisecondsDate / millisecondsInADay) * millisecondsInADay;
@@ -304,7 +304,7 @@ function calculateDifferenceDays() {
     
     console.log(mostrarHoteles());
     const hotelesDisponibles = data.filter((hotel) => {
-    return isHotelAvailable(hotel, differenceInMilliseconds);
+    return esHotelDisponible(hotel, differenceInMilliseconds);
     });
     console.log(hotelesDisponibles);
     sectionHotels.innerHTML = "";
