@@ -331,6 +331,21 @@ const main = document.querySelector(".hotels-container");
 buttonConsulta.addEventListener("click", async () => {
     const respuesta2 = await consultarHoteles();
     const data = await respuesta2.json();
+    const countrySelect = document.getElementById('country');
+    const priceSelect = document.getElementById('prices');
+    const dateDeparture = document.getElementById("departure");
+    const dateReturntrip = document.getElementById("returntrip");
+    
+    // Función para restablecer el campo select al valor predeterminado
+    function resetearFiltros() {
+    countrySelect.selectedIndex = 0; // Establece el índice seleccionado al primero
+    priceSelect.selectedIndex = 0;
+    dateDeparture.value = '';
+    dateReturntrip.value = '';
+    }
+
+    // Llamar a la función para restablecer el filtro
+    resetearFiltros();
     console.log(data);
     main.innerHTML = "";
     informacionHoteles(data);
