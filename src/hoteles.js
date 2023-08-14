@@ -9,32 +9,6 @@ function priceText(price) {
     return "$".repeat(price);
 }
 
-const sectionHotels = document.querySelector(".hotels-container");
-
-const datos = consultarHoteles ()
-const getDatos = () => {
-    return new Promise((resolve, reject) => {
-        if (datos.length === 0) {
-            reject(new Error ('No hay hoteles para mostrar'));
-        }
-        setTimeout(() => {
-            resolve(datos);
-        }, 0);
-    });
-}
-
-async function mostrarHoteles() {
-    try{
-        const respuesta = await getDatos();
-        const data = await respuesta.json();
-        // console.log(data);
-        sectionHotels.innerHTML = "";
-        informacionHoteles(data);
-        } catch (err) {
-        console.log(err.message)
-    }
-}
-
 function informacionHoteles(data) {
     data.forEach((hotel) => {
         const cardHotel = document.createElement("div");
@@ -63,10 +37,43 @@ function informacionHoteles(data) {
         });
 }
 
+const sectionHotels = document.querySelector(".hotels-container");
+
+const datos = consultarHoteles ()
+const getDatos = () => {
+    return new Promise((resolve, reject) => {
+        if (datos.length === 0) {
+            reject(new Error ('No hay hoteles para mostrar'));
+        }
+        setTimeout(() => {
+            resolve(datos);
+        }, 0);
+    });
+}
+
+async function mostrarHoteles() {
+    try{
+        const respuesta = await getDatos();
+        const data = await respuesta.json();
+        console.log(data);
+        sectionHotels.innerHTML = "";
+        informacionHoteles(data);
+        return data;
+        } catch (err) {
+        console.log('Error al cargar hoteles:', err)
+    }
+}
 mostrarHoteles();
 
 // *******************************************Filtro por país ************************************
 const countrySelect = document.getElementById('country');
+// Event listener para detectar cambios en la selección de país
+countrySelect.addEventListener('change', function() {
+    const selectedCountry = countrySelect.value;
+    loadHotelsByCountry(selectedCountry);
+    console.log(selectedCountry);
+});
+
 
 // Función para cargar hoteles por país desde la API
 function loadHotelsByCountry(country) {
@@ -86,20 +93,24 @@ function loadHotelsByCountry(country) {
                     <img src="${hotel.photo}" alt="${hotel.name}" class="hotel-image" />
                     <h2>${hotel.name}</h2>
                     <div class="detallesCard">
-                        <p>País: ${hotel.country}</p>
-                        <img src="${getFlagCountryUrl(hotel.country)}" class="flag" alt="${hotel.country}"
-                        <div class="textoCard">
+                        <div class="descripcion">
+                            <div class="pais">
+                            <p>País: ${hotel.country}</p>
+                            <img src="${getFlagCountryUrl(hotel.country)}" class="flag" alt="${hotel.country}" />
+                            </div>
+                            <div class="textoCard">
                             <p>Rooms: ${hotel.rooms}</p>
                             <p>Price: ${priceText(hotel.price)}</p>
-                            <div>
-                                <button class="hotel-bookit clear">Book it!</button>
                             </div>
+                        </div>
+                        <div class="bookit">
+                        <button class="button-bookit">Book it!</button>
                         </div>
                     </div>
                     <!-- Agregar más detalles del hotel si es necesario -->
                 `;
                 sectionHotels.appendChild(cardHotel);
-            });
+                });
         })
     } else {
         fetch(`https://6256097e8646add390e01d99.mockapi.io/hotels/reservation/hotels?country=${country}`)
@@ -116,32 +127,30 @@ function loadHotelsByCountry(country) {
                         <img src="${hotel.photo}" alt="${hotel.name}" class="hotel-image" />
                         <h2>${hotel.name}</h2>
                         <div class="detallesCard">
-                            <p>País: ${hotel.country}</p>
-                            <img src="${getFlagCountryUrl(hotel.country)}" class="flag" alt="${hotel.country}
-                            <div class="textoCard">
+                            <div class="descripcion">
+                                <div class="pais">
+                                <p>País: ${hotel.country}</p>
+                                <img src="${getFlagCountryUrl(hotel.country)}" class="flag" alt="${hotel.country}" />
+                                </div>
+                                <div class="textoCard">
                                 <p>Rooms: ${hotel.rooms}</p>
                                 <p>Price: ${priceText(hotel.price)}</p>
-                                <div>
-                                    <button class="hotel-bookit clear">Book it!</button>
                                 </div>
+                            </div>
+                            <div class="bookit">
+                            <button class="button-bookit">Book it!</button>
                             </div>
                         </div>
                         <!-- Agregar más detalles del hotel si es necesario -->
                     `;
                     sectionHotels.appendChild(cardHotel);
-                });
+                    });
             })
             .catch(error => {
         console.error('Error al cargar hoteles:', error);
         });
     }
 }
-
-// Event listener para detectar cambios en la selección de país
-countrySelect.addEventListener('change', function() {
-    const selectedCountry = countrySelect.value;
-    loadHotelsByCountry(selectedCountry);
-});
 
 // *******************************************Filtro por precio ************************************
 
@@ -164,20 +173,24 @@ function loadHotelsByPrice(price) {
                     <img src="${hotel.photo}" alt="${hotel.name}" class="hotel-image" />
                     <h2>${hotel.name}</h2>
                     <div class="detallesCard">
-                        <p>País: ${hotel.country}</p>
-                        <img src="${getFlagCountryUrl(hotel.country)}" class="flag" alt="${hotel.country}"
-                        <div class="textoCard">
+                        <div class="descripcion">
+                            <div class="pais">
+                            <p>País: ${hotel.country}</p>
+                            <img src="${getFlagCountryUrl(hotel.country)}" class="flag" alt="${hotel.country}" />
+                            </div>
+                            <div class="textoCard">
                             <p>Rooms: ${hotel.rooms}</p>
                             <p>Price: ${priceText(hotel.price)}</p>
-                            <div>
-                                <button class="hotel-bookit clear">Book it!</button>
                             </div>
+                        </div>
+                        <div class="bookit">
+                        <button class="button-bookit">Book it!</button>
                         </div>
                     </div>
                     <!-- Agregar más detalles del hotel si es necesario -->
                 `;
                 sectionHotels.appendChild(cardHotel);
-            });
+                });
         })
     } else {
         fetch(`https://6256097e8646add390e01d99.mockapi.io/hotels/reservation/hotels?price=${price}`)
@@ -194,20 +207,24 @@ function loadHotelsByPrice(price) {
                         <img src="${hotel.photo}" alt="${hotel.name}" class="hotel-image" />
                         <h2>${hotel.name}</h2>
                         <div class="detallesCard">
-                            <p>País: ${hotel.country}</p>
-                            <img src="${getFlagCountryUrl(hotel.country)}" class="flag" alt="${hotel.country}"
-                            <div class="textoCard">
+                            <div class="descripcion">
+                                <div class="pais">
+                                <p>País: ${hotel.country}</p>
+                                <img src="${getFlagCountryUrl(hotel.country)}" class="flag" alt="${hotel.country}" />
+                                </div>
+                                <div class="textoCard">
                                 <p>Rooms: ${hotel.rooms}</p>
                                 <p>Price: ${priceText(hotel.price)}</p>
-                                <div>
-                                    <button class="hotel-bookit clear">Book it!</button>
                                 </div>
+                            </div>
+                            <div class="bookit">
+                            <button class="button-bookit">Book it!</button>
                             </div>
                         </div>
                         <!-- Agregar más detalles del hotel si es necesario -->
                     `;
                     sectionHotels.appendChild(cardHotel);
-                });
+                    });
             })
             .catch(error => {
         console.error('Error al cargar hoteles:', error);
@@ -222,116 +239,99 @@ priceSelect.addEventListener('change', function() {
 });
 
 // *******************************************Filtro por fechas salida y regreso ************************************
-
-async function hotelesSalida() {
-    try{
-        const respuesta = await getDatos();
-        const data = await respuesta.json();
-        console.log(data);
-        return data
-        sectionHotels.innerHTML = "";
-        informacionHoteles(data);
-        } catch (error) {
-            console.error('Error al obtener hoteles:', error);
-            return [];
+const respuesta = await consultarHoteles();
+const data = await respuesta.json();
+// Filtro de datos por fecha
+const dateDeparture = document.getElementById("departure");
+const dateReturntrip = document.getElementById("returntrip");
+const today = new Date();
+function zerodate(dateZero) {
+    const converText = "" + dateZero;
+    if (converText.length === 1) {
+    return "0" + dateZero;
+    } else {
+    return dateZero;
+    }
+}
+const day = today.getDate();
+const month = today.getMonth() + 1;
+const year = today.getFullYear();
+const dateDepartureHotels = year + "-" + zerodate(month) + "-" + zerodate(day);
+const dateReturntripHotels =
+    year + "-" + zerodate(month) + "-" + zerodate(day + 1);
+dateDeparture.setAttribute("min", dateDepartureHotels);
+dateReturntrip.setAttribute("min", dateReturntripHotels);
+dateDeparture.addEventListener("change", () => {
+    const parts = dateDeparture.value.split("-");
+    const year = parseInt(parts[0]);
+    const month = parseInt(parts[1]);
+    const day = parseInt(parts[2]);
+    console.log(day)
+    const finalDate = year + "-" + zerodate(month) + "-" + zerodate(day+1);
+    dateReturntrip.setAttribute("min", finalDate);
+});
+function isHotelAvailable(hotel, differenceInMilliseconds) {
+    const availabilityFrom = hotel.availabilityFrom;
+    const availabilityTo = hotel.availabilityTo;
+    const availabilityDifference = availabilityTo - availabilityFrom;
+    return (
+    availabilityDifference >= differenceInMilliseconds
+    )   
+}
+let dateReturntripSelected = false;
+function calculateDifferenceDays() {
+    const currentDateIni = new Date();
+    currentDateIni.setHours(0, 0, 0, 0);
+    console.log(currentDateIni);
+    const currentDateMilliseconds = currentDateIni.getTime();
+    console.log(currentDateMilliseconds);
+    const optionCheckInIni = new Date(dateDeparture.value + " 00:00:00");
+    console.log(optionCheckInIni);
+    optionCheckInIni.setHours(0, 0, 0, 0);
+    const optionCheckIn = optionCheckInIni.getTime();
+    console.log(optionCheckInIni);
+    if (!dateReturntripSelected) {
+    return;
+    }
+    const optionCheckOut = new Date(dateReturntrip.value);
+    console.log(optionCheckOut)
+    const resultCheckIn = optionCheckIn ;
+    const millisecondsDate = optionCheckOut - optionCheckIn;
+    const millisecondsInADay = 24 * 60 * 60 * 1000; // 86,400,000
+    const differenceInMilliseconds =
+        Math.round(millisecondsDate / millisecondsInADay) * millisecondsInADay;
+    console.log(differenceInMilliseconds)
+    
+    console.log(mostrarHoteles());
+    const hotelesDisponibles = data.filter((hotel) => {
+    return isHotelAvailable(hotel, differenceInMilliseconds);
+    });
+    console.log(hotelesDisponibles);
+    sectionHotels.innerHTML = "";
+    if (hotelesDisponibles.length > 0) {
+    informacionHoteles(hotelesDisponibles);
+    } else {
+    sectionHotels.innerHTML = "¡lo siento! No hay hoteles disponibles para este rango de fechas.";
+    sectionHotels.style.color = "red";
     }
 }
 
+dateDeparture.value = "";
+dateReturntrip.value = "";
+dateDeparture.addEventListener("change", calculateDifferenceDays);
+dateReturntrip.addEventListener("change", function () {
+    dateReturntripSelected = true;
+    calculateDifferenceDays();
+});
 
+// ******************************************* Clear ************************************
 
-
-
-// const departureDateInput = document.getElementById('departure');
-
-// function loadHotelsDeparture(departureDate0) {
-//     fetch(`https://6256097e8646add390e01d99.mockapi.io/hotels/reservation/hotels`)
-//     .then(response => response.json())
-//     .then(data => {
-//         console.log(departureDate0);
-//         const filteredHotels = data.filter(hotel => {
-//             const availabilityFrom = new Date(hotel.availabilityFrom);
-//             console.log(availabilityFrom)
-//             return availabilityFrom >= departureDate0;
-//         });
-//         // Limpiar la lista de hoteles antes de agregar nuevos elementos
-//         sectionHotels.innerHTML = '';
-
-//         // Agregar hoteles a la lista
-//         filteredHotels.forEach((hotel) => {
-//             const cardHotel = document.createElement("div");
-//             cardHotel.className = "card";
-//             cardHotel.innerHTML = `
-//                 <img src="${hotel.photo}" alt="${hotel.name}" class="hotel-image" />
-//                 <h2>${hotel.name}</h2>
-//                 <div class="detallesCard">
-//                     <p>País: ${hotel.country}</p>
-//                     <img src="${getFlagCountryUrl(hotel.country)}" class="flag" alt="${hotel.country}";
-
-//                     <div class="textoCard">
-//                         <p>Rooms: ${hotel.rooms}</p>
-//                         <p>Price: ${priceText(hotel.price)}</p>
-//                         <div>
-//                             <button class="hotel-bookit clear">Book it!</button>
-//                         </div>
-//                     </div>
-//                 </div>
-//                 <!-- Agregar más detalles del hotel si es necesario -->
-//             `;
-//             sectionHotels.appendChild(cardHotel);
-//         });
-//     });
-// }
-
-
-// departureDateInput.addEventListener('change', function() {
-//     const departureDate0 = new Date(departureDateInput.value);
-//     console.log("dato capturado " + departureDate0);
-//     const departureDate = departureDate0.getTime();
-//     console.log("salida " + departureDate0);
-//     loadHotelsDeparture(departureDate0);
-// });
-
-// const returntripDateInput = document.getElementById('returntrip');
-// function loadHotelsReturntrip(returntripDate) {
-//     fetch(`https://6256097e8646add390e01d99.mockapi.io/hotels/reservation/hotels`)
-//     .then(response => response.json())
-//     .then(data => {
-//         const filteredHotels1 = data.filter(hotel => {
-//             const availabilityTo = new Date(hotel.availabilityTo);
-//             console.log(availabilityTo >= returntripDate)
-//             return availabilityTo >= returntripDate;
-//         });
-//         // Limpiar la lista de hoteles antes de agregar nuevos elementos
-//         sectionHotels.innerHTML = '';
-
-//         // Agregar hoteles a la lista
-//         filteredHotels1.forEach((hotel) => {
-//             const cardHotel = document.createElement("div");
-//             cardHotel.className = "card";
-//             cardHotel.innerHTML = `
-//                 <img src="${hotel.photo}" alt="${hotel.name}" class="hotel-image" />
-//                 <h2>${hotel.name}</h2>
-//                 <div class="detallesCard">
-//                     <p>País: ${hotel.country}</p>
-//                     <img src="${getFlagCountryUrl(hotel.country)}" class="flag" alt="${hotel.country}"
-//                     <div class="textoCard">
-//                         <p>Rooms: ${hotel.rooms}</p>
-//                         <p>Price: ${getPriceText(hotel.price)}</p>
-//                         <div>
-//                             <button class="hotel-bookit clear">Book it!</button>
-//                         </div>
-//                     </div>
-//                 </div>
-//                 <!-- Agregar más detalles del hotel si es necesario -->
-//             `;
-//             sectionHotels.appendChild(cardHotel);
-//         });
-//     });
-// }
-// returntripDateInput.addEventListener('change', function() {
-//     const returntripDate0 = new Date(returntripDateInput.value);
-//     console.log("date capturada " + returntripDate0);
-//     const returntripDate = returntripDate0.getTime();
-//     console.log("regreso " + returntripDate);
-//     loadHotelsReturntrip(returntripDate);
-// });
+const buttonConsulta = document.getElementById("clear");
+const main = document.querySelector(".hotels-container");
+buttonConsulta.addEventListener("click", async () => {
+    const respuesta2 = await consultarHoteles();
+    const data = await respuesta2.json();
+    console.log(data);
+    main.innerHTML = "";
+    informacionHoteles(data);
+});
