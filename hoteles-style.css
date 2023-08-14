@@ -148,11 +148,25 @@ header {
     text-align: center;
     position: relative;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
+    flex-flow: column nowrap;
     justify-content: flex-end;
     align-items: start;
     z-index: 1;
 }
+
+.card::after {
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 1.25rem;
+    background: radial-gradient(224.24% 668.5% at 14.41% -14.14%, rgba(0,0,0,0.57) 44.5%, rgba(255,255,255,0) 67.11%);
+    z-index: -1;
+}
+
 .hotel-image {
     width: 100%;
     height: 100%;
@@ -165,15 +179,53 @@ header {
     z-index: -1;
 }
 
+.detallesCard {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.descripcion {
+    display: flex;
+    flex-direction: column;
+}
 .textoCard {
     display: flex;
+    align-items: center;
     gap:0.625rem;
+}
+
+.pais {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+}
+.flag {
+    width: 30px;
+}
+
+.bookit {
+    display: flex;
+    align-self: flex-end;
 }
 
 .button-bookit {
     display: flex;
     align-self:flex-end;
-    justify-content: center
+    justify-content: center;
+    align-items: center;
+    justify-self: flex-end;
+    align-self: flex-end;
+    border: 0.063rem solid #fff;
+    width: 4.687rem;
+    height: 1.5rem !important;
+    background: #333;
+    border-radius: 0.375rem;
+    color: #fff;
+    font-weight: 500;
+    
 }
 
 /* Pantallas superiores a 600px */
