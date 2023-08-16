@@ -8,5 +8,6 @@
   },
   "keywords": [],
   "author": "John Jairo Cortes Murillo ",
-  "license": "ISC"
+  "license": "ISC",
+  "type": "module"  
 }
